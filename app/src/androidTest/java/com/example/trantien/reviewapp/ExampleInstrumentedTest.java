@@ -1,4 +1,4 @@
-package com.example.trantien.appreview;
+package com.example.trantien.reviewapp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
