@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "1018521970422",
+    "firebase_url": "https://reviewapp-9e34b.firebaseio.com",
+    "project_id": "reviewapp-9e34b",
+    "storage_bucket": "reviewapp-9e34b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018521970422:android:21d66b79e159a22e",
+        "android_client_info": {
+          "package_name": "com.example.trantien.appreview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018521970422-0vtmtv311392ceaojj6qp9qn0h9idell.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.trantien.appreview",
+            "certificate_hash": "f7d1dda2c5a3536ac4e0c987fa6d68520632a2ce"
+          }
+        },
+        {
+          "client_id": "1018521970422-ntj56nlm45nfv0rr40fh3jr06t1k198d.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1018521970422-ntj56nlm45nfv0rr40fh3jr06t1k198d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuLVmHZWU_lH1yoB_OySgfVMrCMxJO320"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018521970422-ntj56nlm45nfv0rr40fh3jr06t1k198d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

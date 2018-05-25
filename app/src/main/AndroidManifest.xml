@@ -19,6 +19,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".mvp.login.view.LoginActivity"/>
+
+        <meta-data
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="label" />
     </application>
 
 </manifest>
