@@ -1,12 +1,12 @@
 package com.example.trantien.appreview.mvp.Home;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,15 +53,27 @@ public class NewsAdapter extends ArrayAdapter<NewsModel> {
         // 3. Get the two text view from the rowView
         TextView title = (TextView) rowView.findViewById(R.id.txtTitle);
 
+        ImageView image = rowView.findViewById(R.id.image);
+
         // 4. Set the text for textView
         title.setText(listData.get(position).getTitle());
+        image.setImageResource(getMipmapResIdByName(listData.get(position).getImage()));
 
         // 5. retrn rowView
         return rowView;
     }
 
-    static class ViewHolder{
-        ImageView image;
-        TextView title;
+    public int getMipmapResIdByName(String resName)  {
+        String pkgName = context.getPackageName();
+
+        // Trả về 0 nếu không tìm thấy.
+        int resID = context.getResources().getIdentifier(resName , "drawable", pkgName);
+        Log.i("CustomListView", "Res Name: "+ resName+"==> Res ID = "+ resID);
+        return resID;
+    }
+
+    private Drawable getImage(String resName){
+        int resourceId = context.getResources().getIdentifier(resName, "drawable", context.getPackageName());
+        return context.getResources().getDrawable(resourceId);
     }
 }

@@ -16,8 +16,8 @@ import android.widget.ListView;
 
 import com.example.trantien.appreview.base.AppConstants;
 import com.example.trantien.appreview.base.drawer.DrawerActivity;
-import com.example.trantien.appreview.mvp.NewsAdapter;
-import com.example.trantien.appreview.mvp.NewsModel;
+import com.example.trantien.appreview.mvp.Home.NewsAdapter;
+import com.example.trantien.appreview.mvp.Home.NewsModel;
 import com.example.trantien.appreview.mvp.login.model.Message;
 import com.example.trantien.appreview.mvp.login.view.ConnectFirebase;
 import com.example.trantien.appreview.mvp.login.view.LoginActivity;
@@ -55,6 +55,11 @@ public class MainActivity extends DrawerActivity  implements LocationListener {
     MySharedPreferences mySharedPreferences;
     public String email="admin@gmail.com";
     public String password="112233";
+
+    private List<NewsModel> list;
+
+
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -121,15 +126,24 @@ public class MainActivity extends DrawerActivity  implements LocationListener {
         }else
             setInfor(mySharedPreferences.Get("imageURL"),mySharedPreferences.Get("fullname"));
 
-        List<NewsModel> list = new ArrayList<>();
-        list.add(new NewsModel(null, "Đại biểu Quốc hội: Dẹp nạn bạo hành trẻ em là việc khẩn cấp"));
-        list.add(new NewsModel(null, "Ấn Độ: Biểu tình biên thành bạo lực, 9 người chết"));
+
+        this.getData();
 
         this.listView = (ListView)findViewById(R.id.listNews);
 
         this.listView.setAdapter(new NewsAdapter(list, this));
 
             setInfor(mySharedPreferences.Get("imageURL"),mySharedPreferences.Get("fullname"));
+    }
+
+    private void getData(){
+        this.list = new ArrayList<>();
+        this.list.add(new NewsModel("news_1", "Bạo lực học đường: Một tháng 6 lần 'yêu cầu xử lý nghiêm'!", "https://thanhnien.vn/giao-duc/bao-luc-hoc-duong-mot-thang-6-lan-yeu-cau-xu-ly-nghiem-949624.html"));
+        this.list.add(new NewsModel("news_2", "Bạo lực học đường: Trách nhiệm đầu tiên thuộc về ai?", "https://news.zing.vn/bao-luc-hoc-duong-trach-nhiem-dau-tien-thuoc-ve-ai-post791305.html"));
+        this.list.add(new NewsModel("news_3", "Vì sao bạo lực học đường ở Việt Nam bùng nổ lớn?", "https://chantroimoimedia.com/2018/03/22/vi-sao-bao-luc-hoc-duong-o-viet-nam-bung-no-lon/"));
+        this.list.add(new NewsModel("news_4", "Bạo lực học đường: Đừng chịu đựng một mình", "http://dantri.com.vn/giao-duc-khuyen-hoc/bao-luc-hoc-duong-dung-chiu-dung-mot-minh-20180203121623315.htm"));
+        this.list.add(new NewsModel("news_5", "Tăng cường đối thoại để phát hiện sớm bạo lực học đường", "https://tuoitre.vn/tang-cuong-doi-thoai-de-phat-hien-som-bao-luc-hoc-duong-2018040510513018.htm"));
+
     }
 
     @Override

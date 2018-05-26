@@ -7,19 +7,29 @@ import android.widget.ImageView;
  */
 
 public class NewsModel {
-    private ImageView image;
+    private String image;
     private String title;
+    private String url;
 
-    public NewsModel(ImageView image, String title) {
+    public NewsModel(String image, String title, String url) {
         this.image = image;
         this.title = title;
+        this.url = url;
     }
 
-    public ImageView getImage() {
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getImage() {
         return image;
     }
 
-    public void setImage(ImageView image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
