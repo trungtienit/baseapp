@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.trantien.appreview.mvp.signup.SignUpActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
+
+            android:background="@color/appColor"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+            <ImageView
+                android:src="@drawable/bg_sign_up"
+                android:scaleType="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <FrameLayout
+                android:paddingTop="80dp"
+
+                android:paddingLeft="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:padding="6dp"
+                    android:src="@drawable/add_image"
+                    android:id="@+id/userImage"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/bg_userimage"
+                    />
+            </FrameLayout>
+
+        </FrameLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Thông tin đăng ký"
+                    android:textSize="20sp"
+                    android:textColor="@color/appColor"/>
+
+                <EditText
+                    android:id="@+id/txtFullName"
+                    android:hint="Full Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/txtEmail"
+                    android:hint="Email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/txtPassword"
+                    android:hint="Mật khẩu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"/>
+                <TextView
+                    android:textSize="20sp"
+                    android:textColor="@color/appColor"
+                    android:text="Thông tin thêm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/txtPhoneNumber"
+                    android:hint="Số điện thoại"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/txtAddress"
+                    android:hint="Địa chỉ"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"/>
+
+                <Button
+                    android:id="@+id/btnSignUp"
+                    android:textColor="@color/white"
+                    android:text="Sign-Up"
+                    android:textAllCaps="false"
+                    android:background="@drawable/custom_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

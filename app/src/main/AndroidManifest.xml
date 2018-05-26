@@ -11,6 +11,16 @@
         android:theme="@style/AppTheme">
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
+        <service android:name=".fcm.FirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".fcm.FirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
         <activity android:name="com.example.trantien.appreview.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,11 +28,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mvp.login.view.LoginActivity"/>
+        <activity android:name=".mvp.login.view.LoginActivity" />
+        <!--<activity android:name="com.example.trantien.appreview.mvp.signup.SignUpActivityActivity" />-->
+        <activity android:name=".mvp.signup.SignUpActivity"/>
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="label" />
+
     </application>
 
 </manifest>

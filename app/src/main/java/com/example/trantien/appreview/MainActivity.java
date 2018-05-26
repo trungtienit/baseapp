@@ -6,12 +6,16 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 
+import com.example.trantien.appreview.base.AppConstants;
 import com.example.trantien.appreview.base.drawer.DrawerActivity;
+import com.example.trantien.appreview.mvp.login.view.ConnectFirebase;
 import com.example.trantien.appreview.mvp.login.view.LoginActivity;
+import com.example.trantien.appreview.mvp.signup.SignUpActivity;
 import com.example.trantien.appreview.utils.MySharedPreferences;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONObject;
 
@@ -30,11 +34,11 @@ public class MainActivity extends DrawerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-
+        FirebaseMessaging.getInstance().subscribeToTopic("news");
         mySharedPreferences= new MySharedPreferences(getBaseContext());
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         if (mySharedPreferences.Get("fullname").equals("NULL")) {
-            DirecLogin(getWindow().getDecorView().getRootView());
+            direcLogin(getWindow().getDecorView().getRootView());
         }else
             setAvatar(mySharedPreferences.Get("imageURL"));
     }
@@ -44,38 +48,62 @@ public class MainActivity extends DrawerActivity {
         showToast("CCCC");
         showToast(requestCode+"");
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK){
-            showLoading();
-            GraphRequest request = GraphRequest.newMeRequest(
-                    AccessToken.getCurrentAccessToken(),
-                    new GraphRequest.GraphJSONObjectCallback() {
-                        @Override
-                        public void onCompleted(JSONObject object,
-                                                GraphResponse response) {
-                            // Application code
-                            String name = object.optString(getString(R.string.name));
-                            String id = object.optString(getString(R.string.id));
-                            String email = object.optString(getString(R.string.email));
-                            String link = object.optString(getString(R.string.link));
-                            URL imageURL = extractFacebookIcon(id);
-                            Log.d("namezz: ",name);
-                            Log.d("idzz: ",id);
-                            Log.d("emailzz: ",email);
-                            Log.d("link: ",link);
-                            Log.d("imageURL: ",imageURL.toString());
+        switch (requestCode){
+            case AppConstants.FORM_LOGIN:
+                if(resultCode==RESULT_OK){
+                    showLoading();
+                    GraphRequest request = GraphRequest.newMeRequest(
+                            AccessToken.getCurrentAccessToken(),
+                            new GraphRequest.GraphJSONObjectCallback() {
+                                @Override
+                                public void onCompleted(JSONObject object,
+                                                        GraphResponse response) {
+                                    // Application code
+                                    String name = object.optString(getString(R.string.name));
+                                    String id = object.optString(getString(R.string.id));
+                                    String email = object.optString(getString(R.string.email));
+                                    String link = object.optString(getString(R.string.link));
+                                    URL imageURL = extractFacebookIcon(id);
+                                    Log.d("namezz: ",name);
+                                    Log.d("idzz: ",id);
+                                    Log.d("emailzz: ",email);
+                                    Log.d("link: ",link);
+                                    Log.d("imageURL: ",imageURL.toString());
 
-                            mySharedPreferences.Save("fullname",name);
-                            mySharedPreferences.Save("id",id);
-                            mySharedPreferences.Save("imageURL",imageURL.toString());
-                            setAvatar(mySharedPreferences.Get("imageURL"));
-                            hideLoading();
-                        }
-                    });
-            Bundle parameters = new Bundle();
-            parameters.putString(getString(R.string.fields), getString(R.string.fields_name));
-            request.setParameters(parameters);
-            request.executeAsync();
+
+                                    mySharedPreferences.Save("fullname",name);
+                                    mySharedPreferences.Save("id",id);
+                                    mySharedPreferences.Save("email",email);
+                                    mySharedPreferences.Save("imageURL",imageURL.toString());
+//                                    setAvatar(mySharedPreferences.Get("imageURL"));
+                                    ConnectFirebase connectFirebase = new ConnectFirebase(getBaseContext());
+                                    connectFirebase.loginWithFacebook(id, email, new LoginFirebaseResult() {
+                                        @Override
+                                        public void onSuccess() {
+                                            showToast( "Login successful!!!");
+                                            Log.d("XX","Login successful!!!");
+                                        }
+
+                                        @Override
+                                        public void onFailure() {
+                                            direcSignup(getWindow().getDecorView().getRootView());
+                                            showToast("Account does not exist!");
+                                            Log.d("XX","Account does not exist!");
+                                        }
+                                    });
+                                    hideLoading();
+                                }
+                            });
+                    Bundle parameters = new Bundle();
+                    parameters.putString(getString(R.string.fields), getString(R.string.fields_name));
+                    request.setParameters(parameters);
+                    request.executeAsync();
+                }
+                 break;
+                default:
+                    break;
         }
+
     }
     public URL extractFacebookIcon(String id) {
         try {
@@ -91,8 +119,12 @@ public class MainActivity extends DrawerActivity {
         }
     }
 
-    public void DirecLogin(View view) {
+    public void direcLogin(View view) {
         Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-        startActivityForResult(loginIntent,10);
+        startActivityForResult(loginIntent, AppConstants.FORM_LOGIN);
+    }
+    public void direcSignup(View view) {
+        Intent signupIntent = new Intent(MainActivity.this, SignUpActivity.class);
+        startActivityForResult(signupIntent, AppConstants.FORM_LOGIN);
     }
 }

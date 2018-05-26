@@ -25,7 +25,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     private static String TAG = LoginActivity.class.getName();
 
     private static final String EMAIL = "email";
-    private static final String USER_POSTS = "user_posts";
     private CallbackManager mCallbackManager;
 
     @Override
@@ -58,7 +57,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                //handleFacebookAccessToken(loginResult.getAccessToken());
+                setResult(RESULT_OK);
                 finish();
             }
 
