@@ -48,8 +48,10 @@
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="label" />
 
+        <activity android:name=".mvp.login.view.LoginWithAccount" />
+        <activity android:name=".mvp.question.Question" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".mvp.home.view.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme"></activity>
     </application>

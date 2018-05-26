@@ -1,18 +1,23 @@
 package com.example.trantien.appreview.base.drawer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.trantien.appreview.R;
+import com.example.trantien.appreview.base.AppConstants;
 import com.example.trantien.appreview.base.BaseActivity;
 import com.example.trantien.appreview.base.drawer.adapter.MenuAdapter;
 import com.example.trantien.appreview.base.drawer.dto.BodyDTO;
 import com.example.trantien.appreview.base.drawer.dto.HeaderDTO;
+import com.example.trantien.appreview.mvp.login.view.LoginActivity;
+import com.facebook.login.LoginManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +53,8 @@ abstract public class DrawerActivity extends BaseActivity {
 //        for(int i=0;i<10;i++)
 //            mList.add(new BodyDTO(R.drawable.ic_launcher_background,"Task "+i,false));
         mAdapter= new MenuAdapter(this,mList);
+
+
         rvMenu.setAdapter(mAdapter);
         rvMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL,false));
         mAdapter.setOnItemClickListener(new MenuAdapter.OnItemClickListener() {
@@ -61,6 +68,15 @@ abstract public class DrawerActivity extends BaseActivity {
                 showToast(((BodyDTO)mList.get(position)).title);
             }
         });
+    }
+
+    private void logOut() {
+        LoginManager.getInstance().logOut();
+        direcLogin(getWindow().getDecorView().getRootView());
+    }
+    public void direcLogin(View view) {
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        startActivityForResult(loginIntent, AppConstants.FORM_LOGIN);
     }
     @Override
     public void onBackPressed() {
