@@ -24,7 +24,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
-
+        message="location --Lat: 10.869679, long 106.801987";
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setAutoCancel(true)
                 .setContentTitle("FCM Test")
@@ -33,18 +33,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                 .setContentIntent(pendingIntent);
 
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        ConnectFirebase connectFirebase = new ConnectFirebase(getBaseContext());
-        connectFirebase.getMessages( new GetMessageResults() {
-            @Override
-            public void onSuccess() {
 
-            }
-
-            @Override
-            public void onFailure() {
-
-            }
-        });
         manager.notify(0, builder.build());
     }
 

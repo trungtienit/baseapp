@@ -12,4 +12,5 @@
     <string name="fields_name">id,name,link,email</string>
     <string name="data">data</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_map">MapActivity</string>
 </resources>

@@ -53,6 +53,10 @@
         <activity
             android:name=".mvp.home.view.HomeActivity"
             android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".MapActivity"
+            android:label="@string/title_activity_map"
             android:theme="@style/AppTheme"></activity>
     </application>
 

@@ -5,14 +5,17 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.trantien.appreview.base.AppConstants;
 import com.example.trantien.appreview.base.drawer.DrawerActivity;
@@ -84,7 +87,7 @@ public class MainActivity extends DrawerActivity  implements LocationListener {
                 connectFirebase.pushNotify(m, new PushFirebaseResult() {
                     @Override
                     public void onSuccess() {
-                        showToast("Success");
+                        Toast.makeText(getApplicationContext(), "Gửi thành công, vui lòng giữ bình tĩnh cho tới khi có người hỗ trợ.", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -134,7 +137,19 @@ public class MainActivity extends DrawerActivity  implements LocationListener {
 
         this.listView.setAdapter(new NewsAdapter(list, this));
 
-            setInfor(mySharedPreferences.Get("imageURL"),mySharedPreferences.Get("fullname"));
+        setInfor(mySharedPreferences.Get("imageURL"),mySharedPreferences.Get("fullname"));
+
+
+        this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Object o = listView.getItemAtPosition(position);
+                NewsModel news = (NewsModel) o;
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(news.getUrl()));
+                startActivity(browserIntent);
+            }
+        });
     }
 
     private void getData(){
@@ -323,6 +338,11 @@ public class MainActivity extends DrawerActivity  implements LocationListener {
             e.printStackTrace();
         }
         return location;
+    }
+
+    public void direcmap(View v){
+        Intent intent = new Intent(MainActivity.this, MapActivity.class);
+        startActivity(intent);
     }
     public void sendPost() {
         Thread thread = new Thread(new Runnable() {

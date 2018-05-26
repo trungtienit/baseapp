@@ -55,6 +55,7 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_marginLeft="20dp"
+                    android:onClick="direcmap"
                     android:background="@drawable/ic_location" />
             </LinearLayout>
         </LinearLayout>
