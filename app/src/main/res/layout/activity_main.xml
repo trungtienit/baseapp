@@ -16,7 +16,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="170dp">
+            android:layout_height="190dp">
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -31,9 +31,31 @@
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnAdd"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/ic_plus" />
+
+                <Button
+                    android:id="@+id/btnSos"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/ic_sos" />
+
+                <Button
+                    android:id="@+id/btnCurrentLocation"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/ic_location" />
             </LinearLayout>
         </LinearLayout>
 
@@ -46,8 +68,12 @@
         </ListView>
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="70dp"/>
+            android:id="@+id/btnBoom"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/ic_boom"
+            android:layout_width="60dp"
+            android:layout_height="60dp"/>
     </LinearLayout>
 
 

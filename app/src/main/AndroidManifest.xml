@@ -43,7 +43,6 @@
 
         <activity android:name=".mvp.login.view.LoginWithAccount" />
         <activity android:name=".mvp.question.Question" />
-        <activity android:name=".mvp.Home.Home"></activity>
     </application>
 
 </manifest>

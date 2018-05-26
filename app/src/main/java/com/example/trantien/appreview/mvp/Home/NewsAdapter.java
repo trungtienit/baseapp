@@ -49,7 +49,7 @@ public class NewsAdapter extends BaseAdapter {
         if(convertView == null){
             convertView = layoutInflater.inflate(R.layout.home_list_view_item, null);
             holder = new ViewHolder();
-            holder.image = (ImageView)convertView.findViewById(R.id.image);
+//            holder.image = (ImageView)convertView.findViewById(R.id.image);
             holder.title = (TextView)convertView.findViewById(R.id.txtTitle);
             convertView.setTag(holder);
         }
