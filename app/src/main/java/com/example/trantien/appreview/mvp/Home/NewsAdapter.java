@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,13 +18,14 @@ import java.util.List;
  * Created by QuocTuyen on 5/27/2018.
  */
 
-public class NewsAdapter extends BaseAdapter {
+public class NewsAdapter extends ArrayAdapter<NewsModel> {
 
     private List<NewsModel> listData;
     private LayoutInflater layoutInflater;
     private Context context;
 
     public NewsAdapter(List<NewsModel> listData, Context context) {
+        super(context, R.layout.home_list_view_item, listData);
         this.listData = listData;
         this.context = context;
     }
@@ -33,10 +35,6 @@ public class NewsAdapter extends BaseAdapter {
         return listData.size();
     }
 
-    @Override
-    public Object getItem(int position) {
-        return listData.get(position);
-    }
 
     @Override
     public long getItemId(int position) {
@@ -45,23 +43,21 @@ public class NewsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-        if(convertView == null){
-            convertView = layoutInflater.inflate(R.layout.home_list_view_item, null);
-            holder = new ViewHolder();
-//            holder.image = (ImageView)convertView.findViewById(R.id.image);
-            holder.title = (TextView)convertView.findViewById(R.id.txtTitle);
-            convertView.setTag(holder);
-        }
-        else
-            holder = (ViewHolder)convertView.getTag();
+        // 1. Create inflater
+        LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        NewsModel news = this.listData.get(position);
-        holder.title.setText(news.getTitle());
+        // 2. Get rowView from inflater
+        View rowView = inflater.inflate(R.layout.home_list_view_item, parent, false);
 
-        //Add image
+        // 3. Get the two text view from the rowView
+        TextView title = (TextView) rowView.findViewById(R.id.txtTitle);
 
-        return convertView;
+        // 4. Set the text for textView
+        title.setText(listData.get(position).getTitle());
+
+        // 5. retrn rowView
+        return rowView;
     }
 
     static class ViewHolder{
