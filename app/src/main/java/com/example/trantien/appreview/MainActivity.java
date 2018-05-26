@@ -74,6 +74,7 @@ public class MainActivity extends DrawerActivity  implements LocationListener {
                 Location l= getLocation();
                MySharedPreferences mySharedPreferences= new MySharedPreferences(getBaseContext());
                 Message m=new Message(mySharedPreferences.Get("id"),l.getLatitude()+"",l.getLongitude() +"");
+                Log.d("XAX",mySharedPreferences.Get("id"));
                 ConnectFirebase connectFirebase = new ConnectFirebase(getBaseContext());
                 connectFirebase.pushNotify(m, new PushFirebaseResult() {
                     @Override

@@ -1,8 +1,10 @@
 package com.example.trantien.appreview.mvp.login.view;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.example.trantien.appreview.GetMessageResults;
 import com.example.trantien.appreview.LoginFirebaseResult;
 import com.example.trantien.appreview.PushFirebaseResult;
 import com.example.trantien.appreview.SignupFirebaseResult;
@@ -14,8 +16,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.util.List;
 
 
 public class ConnectFirebase  {
@@ -63,7 +66,29 @@ public class ConnectFirebase  {
             }
         });
     }
+    public String getMessages( final GetMessageResults getMessageResults) {
 
+        final List<Message>  mList= new ArrayList<>();
+        databaseReference.child("Blog").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot m : dataSnapshot.getChildren()) {
+                    Message temp = new Message(m.getValue(Message.class).getUserid(),m.getValue(Message.class).getMlat(),m.getValue(Message.class).getMlong());
+                    mList.add(temp);
+                    if(temp.getUserid()!=null);
+                     Log.d("XXXX",temp.getUserid());
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        return "";
+    }
     public void pushNotify(final Message message, final PushFirebaseResult pushFirebaseResult) {
 
 

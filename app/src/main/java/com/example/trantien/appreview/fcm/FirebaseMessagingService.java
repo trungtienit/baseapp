@@ -5,8 +5,10 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
+import com.example.trantien.appreview.GetMessageResults;
 import com.example.trantien.appreview.MainActivity;
 import com.example.trantien.appreview.R;
+import com.example.trantien.appreview.mvp.login.view.ConnectFirebase;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
@@ -31,7 +33,18 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                 .setContentIntent(pendingIntent);
 
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        ConnectFirebase connectFirebase = new ConnectFirebase(getBaseContext());
+        connectFirebase.getMessages( new GetMessageResults() {
+            @Override
+            public void onSuccess() {
 
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
         manager.notify(0, builder.build());
     }
 
