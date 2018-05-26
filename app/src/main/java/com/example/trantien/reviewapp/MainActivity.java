@@ -6,6 +6,7 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 
+import com.example.trantien.appreview.SignUp;
 import com.example.trantien.reviewapp.base.drawer.DrawerActivity;
 import com.example.trantien.reviewapp.mvp.login.view.LoginActivity;
 import com.example.trantien.reviewapp.utils.MySharedPreferences;
@@ -29,6 +30,7 @@ public class MainActivity extends DrawerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         ButterKnife.bind(this);
         mySharedPreferences= new MySharedPreferences(getBaseContext());
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
@@ -93,7 +95,7 @@ public class MainActivity extends DrawerActivity {
     }
 
     public void DirecLogin(View view) {
-        Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+        Intent loginIntent = new Intent(MainActivity.this, SignUp.class);
         startActivityForResult(loginIntent,10);
     }
 }
