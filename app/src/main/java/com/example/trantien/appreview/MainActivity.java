@@ -3,6 +3,7 @@ package com.example.trantien.appreview;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 
@@ -15,6 +16,11 @@ import com.example.trantien.appreview.utils.MySharedPreferences;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONObject;
@@ -25,6 +31,8 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends DrawerActivity {
     MySharedPreferences mySharedPreferences;
+    public String email="admin@gmail.com";
+    public String password="112233";
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -35,12 +43,37 @@ public class MainActivity extends DrawerActivity {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         FirebaseMessaging.getInstance().subscribeToTopic("news");
+
+         final FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                           // Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            //updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                           // Log.w(TAG, "signInWithEmail:failure", task.getException());
+                       //     Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
+                                  //  Toast.LENGTH_SHORT).show();
+                           // updateUI(null);
+                        }
+
+                        // ...
+                    }
+                });
+
         mySharedPreferences= new MySharedPreferences(getBaseContext());
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         if (mySharedPreferences.Get("fullname").equals("NULL")) {
             direcLogin(getWindow().getDecorView().getRootView());
         }else
-            setAvatar(mySharedPreferences.Get("imageURL"));
+            setInfor(mySharedPreferences.Get("imageURL"),mySharedPreferences.Get("fullname"));
     }
 
     @Override
@@ -75,7 +108,8 @@ public class MainActivity extends DrawerActivity {
                                     mySharedPreferences.Save("id",id);
                                     mySharedPreferences.Save("email",email);
                                     mySharedPreferences.Save("imageURL",imageURL.toString());
-//                                    setAvatar(mySharedPreferences.Get("imageURL"));
+                                    setInfor(imageURL.toString(),name);
+//                                    setName(name);
                                     ConnectFirebase connectFirebase = new ConnectFirebase(getBaseContext());
                                     connectFirebase.loginWithFacebook(id, email, new LoginFirebaseResult() {
                                         @Override
@@ -126,5 +160,10 @@ public class MainActivity extends DrawerActivity {
     public void direcSignup(View view) {
         Intent signupIntent = new Intent(MainActivity.this, SignUpActivity.class);
         startActivityForResult(signupIntent, AppConstants.FORM_LOGIN);
+    }
+
+    public void direcHome(View view) {
+        Intent signupIntent = new Intent(MainActivity.this, HomeActivity.class);
+       startActivity(signupIntent);
     }
 }

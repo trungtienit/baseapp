@@ -45,8 +45,8 @@ abstract public class DrawerActivity extends BaseActivity {
         mList.add(
                 new HeaderDTO("MyApp",null,false)
         );
-        for(int i=0;i<10;i++)
-            mList.add(new BodyDTO(R.drawable.ic_launcher_background,"Task "+i,false));
+//        for(int i=0;i<10;i++)
+//            mList.add(new BodyDTO(R.drawable.ic_launcher_background,"Task "+i,false));
         mAdapter= new MenuAdapter(this,mList);
         rvMenu.setAdapter(mAdapter);
         rvMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL,false));
@@ -84,10 +84,12 @@ abstract public class DrawerActivity extends BaseActivity {
             drawerLayout.closeDrawer(Gravity.START);
         }
     }
-    protected void setAvatar(String url) {
+    protected void setInfor(String url,String name) {
         HeaderDTO mHeaderDTO= (HeaderDTO) mList.get(0);
         mHeaderDTO.setUrl(url);
+        mHeaderDTO.setName(name);
         mAdapter.notifyItemChanged(0);
     }
+
 
 }
