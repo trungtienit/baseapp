@@ -4,7 +4,9 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.example.trantien.appreview.LoginFirebaseResult;
+import com.example.trantien.appreview.PushFirebaseResult;
 import com.example.trantien.appreview.SignupFirebaseResult;
+import com.example.trantien.appreview.mvp.login.model.Message;
 import com.example.trantien.appreview.mvp.login.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -62,6 +64,31 @@ public class ConnectFirebase  {
         });
     }
 
+    public void pushNotify(final Message message, final PushFirebaseResult pushFirebaseResult) {
+
+
+        databaseReference.child("Blog").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                databaseReference.child("Blog").push().setValue(message, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                        if(databaseError == null)
+                            Toast.makeText(c,"Create Successfull", Toast.LENGTH_SHORT).show();
+                        pushFirebaseResult.onSuccess();
+                        return;
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
     private void put_hashmap(User x) {
         hashMap_login.put(x.getId_fb(), x.getEmail());
     }

@@ -14,4 +14,8 @@ public class HeaderDTO {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public void setName(String name) {
+        this.title = name;
+    }
 }
