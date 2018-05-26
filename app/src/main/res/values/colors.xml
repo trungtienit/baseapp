@@ -11,4 +11,5 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="appColor">#c0392b</color>
+    <color name="app_blue">#5696c3</color>
 </resources>

@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 
 import com.example.trantien.appreview.base.AppConstants;
 import com.example.trantien.appreview.base.drawer.DrawerActivity;
+import com.example.trantien.appreview.mvp.Home.NewsAdapter;
+import com.example.trantien.appreview.mvp.Home.NewsModel;
 import com.example.trantien.appreview.mvp.login.view.ConnectFirebase;
 import com.example.trantien.appreview.mvp.login.view.LoginActivity;
 import com.example.trantien.appreview.mvp.signup.SignUpActivity;
@@ -20,10 +23,14 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 
 public class MainActivity extends DrawerActivity {
+
+    private ListView listView;
     MySharedPreferences mySharedPreferences;
     @Override
     protected int getLayoutId() {
@@ -41,6 +48,15 @@ public class MainActivity extends DrawerActivity {
             direcLogin(getWindow().getDecorView().getRootView());
         }else
             setAvatar(mySharedPreferences.Get("imageURL"));
+
+        List<NewsModel> list = new ArrayList<>();
+        list.add(new NewsModel(null, "Đại biểu Quốc hội: Dẹp nạn bạo hành trẻ em là việc khẩn cấp"));
+        list.add(new NewsModel(null, "Ấn Độ: Biểu tình biên thành bạo lực, 9 người chết"));
+
+        this.listView = (ListView)findViewById(R.id.listNews);
+
+        this.listView.setAdapter(new NewsAdapter(list, this));
+
     }
 
     @Override
